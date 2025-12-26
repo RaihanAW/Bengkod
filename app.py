@@ -3,13 +3,20 @@ import pandas as pd
 import joblib
 
 #Load Model
-model = joblib.load('best_model_rf.pkl')
+@st.cache_resource
+def load_model():
+    # Load model
+    model = joblib.load('model_churn_best.pkl')
+    return model
 
+try:
+    model = load_model()
+except Exception as e:
+    st.error(f"Gagal memuat model. Error: {e}")
 #Judul dan Deskripsi
-st.title("Telco Customer Churn Prediction")
+st.title("UAS BENGKEL KODING")
 st.write("""
-Aplikasi ini digunakan untuk memprediksi apakah seorang pelanggan akan **Churn** (berhenti berlangganan) atau **Tidak**
-berdasarkan data profil dan layanan yang mereka gunakan.
+Aplikasi untuk demonstrasi
 """)
 
 #Form Input Fitur
