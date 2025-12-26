@@ -6,7 +6,7 @@ import joblib
 @st.cache_resource
 def load_model():
     # Load model
-    model = joblib.load('model_churn_best.pkl')
+    model = joblib.load('best_model_rf.pkl')
     return model
 
 try:
