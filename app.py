@@ -3,7 +3,7 @@ import pandas as pd
 import joblib
 
 #Load Model
-model = joblib.load('best_model_vt.pkl')
+model = joblib.load('best_model_rf.pkl')
 
 #Judul dan Deskripsi
 st.title("Telco Customer Churn Prediction")
