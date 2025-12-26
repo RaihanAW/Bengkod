@@ -2,18 +2,17 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# 1. Load Model
-model = joblib.load('model_churn_best.pkl')
+#Load Model
+model = joblib.load('best_model_vt.pkl')
 
-# 2. Judul dan Deskripsi
+#Judul dan Deskripsi
 st.title("Telco Customer Churn Prediction")
 st.write("""
 Aplikasi ini digunakan untuk memprediksi apakah seorang pelanggan akan **Churn** (berhenti berlangganan) atau **Tidak**
 berdasarkan data profil dan layanan yang mereka gunakan.
 """)
 
-# 3. Form Input Fitur
-# Kita bagi menjadi 2 kolom agar tampilan lebih rapi
+#Form Input Fitur
 col1, col2 = st.columns(2)
 
 with col1:
@@ -39,7 +38,7 @@ with col2:
     multiple_lines = st.selectbox("Multiple Lines", ['No phone service', 'No', 'Yes'])
     internet_service = st.selectbox("Internet Service", ['DSL', 'Fiber optic', 'No'])
     
-    # Layanan Tambahan Internet
+
     online_security = st.selectbox("Online Security", ['No internet service', 'No', 'Yes'])
     online_backup = st.selectbox("Online Backup", ['No internet service', 'No', 'Yes'])
     device_protection = st.selectbox("Device Protection", ['No internet service', 'No', 'Yes'])
@@ -47,10 +46,9 @@ with col2:
     streaming_tv = st.selectbox("Streaming TV", ['No internet service', 'No', 'Yes'])
     streaming_movies = st.selectbox("Streaming Movies", ['No internet service', 'No', 'Yes'])
 
-# 4. Proses Prediksi
+#Proses Prediksi
 if st.button("Prediksi Churn"):
-    # Membuat DataFrame dari input user
-    # Nama kolom HARUS SAMA PERSIS dengan dataset awal (X_train)
+    # Nama kolom harus sama dengan dataset awal (X_train)
     input_data = pd.DataFrame({
         'gender': [gender],
         'SeniorCitizen': [senior_citizen],
