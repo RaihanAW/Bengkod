@@ -9,7 +9,7 @@ model = joblib.load('model_only.pkl')
 st.title("Telco Customer Churn Prediction")
 
 def rerun_app():
-    st.rerun()
+    st.cache_resource.clear()
 
 # 2. Form Input
 col1, col2 = st.columns(2)
