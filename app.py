@@ -146,15 +146,12 @@ if st.button("Prediksi"):
     prediction = model.predict(df_input)
     proba = model.predict_proba(df_input)[0][1]
 
-    st.subheader("Hasil Prediksi")
+    st.divider()
     if prediction[0] == 1:
-        st.error("🚨 HASIL: CHURN (1)")
-        st.write("Pelanggan ini memiliki indikasi kuat untuk berhenti berlangganan.")
+        st.error(f"Hasil Prediksi: **CHURN (1)**")
+        st.write(f"Probabilitas pelanggan berhenti: {proba:.2%}")
     else:
-        st.success("✅ HASIL: TIDAK CHURN (0)")
-        st.write("Pelanggan ini cenderung akan tetap berlangganan.")
-    
-    # Menampilkan angka probabilitas dengan teks besar
-    st.metric(label="Probabilitas Churn", value=f"{proba[1]:.2%}")
+        st.success(f"Hasil Prediksi: **TIDAK CHURN (0)**")
+        st.write(f"Probabilitas pelanggan berhenti: {proba:.2%}")
     
 
