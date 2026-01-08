@@ -152,6 +152,6 @@ if st.button("Prediksi"):
         st.write(f"Probabilitas pelanggan berhenti: {proba:.2%}")
     else:
         st.success(f"Hasil Prediksi: **TIDAK CHURN (0)**")
-        st.write(f"Probabilitas pelanggan berhenti: {proba:.2%}")
+        st.write(f"Probabilitas pelanggan tidak berhenti: {proba:.2%}")
     
 
