@@ -1,14 +1,47 @@
 import streamlit as st
 import pandas as pd
 import joblib
+import matplotlib.pyplot as plt
 
 # 1. Load Model
 model = joblib.load('model_only.pkl')
 
 st.title("Telco Customer Churn Prediction")
 
+def rerun_app():
+    st.rerun()
+
 # 2. Form Input
 col1, col2 = st.columns(2)
+
+with st.expander("ℹ️ Penjelasan Singkat Fitur"):
+    st.write("""
+    Penjelasan Fitur:
+    
+    **Data Demografis & Profil:**
+    * **Gender**: Jenis kelamin pelanggan (Male/Female).
+    * **Senior Citizen**: Apakah pelanggan berusia lanjut (1: Ya, 0: Tidak).
+    * **Partner**: Apakah pelanggan memiliki pasangan (Yes/No).
+    * **Dependents**: Apakah pelanggan memiliki tanggungan seperti anak/orang tua (Yes/No).
+    * **Tenure**: Lama berlangganan dalam hitungan bulan.
+
+    **Layanan Utama & Tambahan:**
+    * **Phone Service**: Menggunakan layanan telepon (Yes/No).
+    * **Multiple Lines**: Memiliki lebih dari satu jalur telepon.
+    * **Internet Service**: Jenis provider internet (DSL, Fiber optic, No).
+    * **Online Security**: Layanan keamanan cybersecurity tambahan.
+    * **Online Backup** : Layanan cadangan data
+    * **Device Protection**: Perlindungan perangkat.
+    * **Tech Support**: Layanan dukungan teknis khusus.
+    * **Streaming TV / Movies**: Layanan hiburan streaming TV dan Film.
+
+    **Akun & Pembayaran:**
+    * **Contract**: Jenis kontrak (Month-to-month, One year, Two year).
+    * **Paperless Billing**: Tagihan dikirim secara digital/paperless (Yes/No).
+    * **Payment Method**: Metode pembayaran yang digunakan.
+    * **Monthly Charges**: Biaya yang dibayar setiap bulan.
+    * **Total Charges**: Total biaya yang telah dibayar selama berlangganan.
+    """)
 
 with col1:
     st.header("Profil & Tagihan")
@@ -37,6 +70,8 @@ with col2:
         'Bank transfer (automatic)', 'Credit card (automatic)', 
         'Electronic check', 'Mailed check'
     ])
+
+st.button("Reset Input", on_click=rerun_app)
 
 # 3. Proses Prediksi
 if st.button("Prediksi"):
@@ -118,3 +153,18 @@ if st.button("Prediksi"):
     else:
         st.success(f"Hasil Prediksi: **TIDAK CHURN (0)**")
         st.write(f"Probabilitas pelanggan berhenti: {proba:.2%}")
+
+
+    st.subheader("Skor Risiko Pelanggan")
+    
+    # Data untuk chart
+    labels = ['Tetap (Loyal)', 'Berhenti (Churn)']
+    # proba[0] adalah probabilitas Tidak Churn, proba[1] adalah Churn
+    sizes = [prediction_proba[0][0], prediction_proba[0][1]] 
+    colors = ['#2ecc71', '#e74c3c'] # Hijau dan Merah
+    
+    fig, ax = plt.subplots(figsize=(6, 3))
+    ax.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, colors=colors, wedgeprops=dict(width=0.4))
+    ax.axis('equal') 
+    
+    st.pyplot(fig)
