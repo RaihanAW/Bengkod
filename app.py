@@ -146,46 +146,15 @@ if st.button("Prediksi"):
     prediction = model.predict(df_input)
     proba = model.predict_proba(df_input)[0][1]
 
-    st.divider()
-    v1, v2 = st.columns([1, 1])
+    st.subheader("Hasil Prediksi")
+    if prediction[0] == 1:
+        st.error("🚨 HASIL: CHURN (1)")
+        st.write("Pelanggan ini memiliki indikasi kuat untuk berhenti berlangganan.")
+    else:
+        st.success("✅ HASIL: TIDAK CHURN (0)")
+        st.write("Pelanggan ini cenderung akan tetap berlangganan.")
     
-    with v1:
-        st.subheader("Hasil Prediksi")
-        if prediction[0] == 1:
-            st.error("🚨 HASIL: CHURN (1)")
-            st.write("Pelanggan ini memiliki indikasi kuat untuk berhenti berlangganan.")
-        else:
-            st.success("✅ HASIL: TIDAK CHURN (0)")
-            st.write("Pelanggan ini cenderung akan tetap berlangganan.")
-        
-        # Menampilkan angka probabilitas dengan teks besar
-        st.metric(label="Probabilitas Churn", value=f"{proba[1]:.2%}")
+    # Menampilkan angka probabilitas dengan teks besar
+    st.metric(label="Probabilitas Churn", value=f"{proba[1]:.2%}")
     
-    with v2:
-        st.subheader("Grafik Analisis Risiko")
-        
-        # Membuat Bar Chart Horizontal untuk Probabilitas
-        fig, ax = plt.subplots(figsize=(6, 4))
-        
-        labels = ['Tetap (Loyal)', 'Berhenti (Churn)']
-        probs = [proba[0], proba[1]]
-        colors = ['#2ecc71', '#e74c3c'] # Hijau untuk Loyal, Merah untuk Churn
-        
-        # Membuat bar
-        bars = ax.barh(labels, probs, color=colors)
-        
-        # Menambahkan label persentase di ujung bar
-        for bar in bars:
-            width = bar.get_width()
-            ax.text(width + 0.01, bar.get_y() + bar.get_height()/2, 
-                    f'{width:.1%}', va='center', fontweight='bold')
-    
-        # Menghias tampilan grafik
-        ax.set_xlim(0, 1.1) # Beri ruang untuk teks persentase
-        ax.set_title("Perbandingan Probabilitas", fontsize=12)
-        ax.spines['top'].set_visible(False)
-        ax.spines['right'].set_visible(False)
-        ax.spines['bottom'].set_visible(False)
-        ax.get_xaxis().set_visible(False) # Sembunyikan sumbu X karena sudah ada label persen
-    
-        st.pyplot(fig)
+
