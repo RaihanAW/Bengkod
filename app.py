@@ -48,7 +48,7 @@ with col1:
     gender = st.selectbox("Gender", ['Female', 'Male'])
     partner = st.selectbox("Partner", ['No', 'Yes'])
     dependents = st.selectbox("Dependents", ['No', 'Yes'])
-    tenure = st.number_input("Tenure (Bulan)", min_value=0, value=12)
+    tenure = st.number_input("Tenure (Bulan)", min_value=0.0, value=12.0)
     # Ordinal untuk Contract
     contract = st.selectbox("Contract", ['Month-to-month', 'One year', 'Two year'])
     paperless_billing = st.selectbox("Paperless Billing", ['No', 'Yes'])
