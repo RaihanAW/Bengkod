@@ -121,10 +121,10 @@ if st.button("Prediksi"):
     input_dict[f'PaperlessBilling_{paperless_billing}'] = 1
     input_dict[f'PaymentMethod_{payment_method}'] = 1
 
-    # D. Membuat DataFrame dan Memastikan URUTAN KOLOM SAMA PERSIS
+    # D. Membuat DataFrame dengan urutan kolom sama persis dengan fit model pada training
     df_input = pd.DataFrame([input_dict])
     
-    # Daftar kolom sesuai urutan fit model Anda
+    # Daftar kolom sesuai urutan fit model
     feature_order = [
         'tenure', 'MonthlyCharges', 'TotalCharges', 'Contract', 'gender_Female', 'gender_Male', 
         'Partner_No', 'Partner_Yes', 'Dependents_No', 'Dependents_Yes', 'PhoneService_No', 
