@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
 # 1. Load Model
 model = joblib.load('model_only.pkl')
@@ -141,6 +141,10 @@ if st.button("Prediksi"):
     ]
     
     df_input = df_input[feature_order]
+    scaler = MinMaxScaler()
+    non_normalized_cols = ['TotalCharges', 'MonthlyCharges', 'tenure']
+    for col in non_normalized_cols:
+        df_input[col] = scaler.fit_transform(df_input[[col]])
 
     # E. Prediksi dan Tampilan Hasil
     prediction = model.predict(df_input)
